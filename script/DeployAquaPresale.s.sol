@@ -18,7 +18,7 @@ contract DeployScript is Script {
     function run() external {
         // Fetch deployer private key from environment
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        
+
         // Start broadcasting transactions
         vm.startBroadcast(deployerPrivateKey);
 
@@ -32,14 +32,7 @@ contract DeployScript is Script {
 
         // Deploy the presale contract
         SecureAquaPresale presale = new SecureAquaPresale(
-            address(token),
-            RATE,
-            TOKENS_FOR_PRESALE,
-            MAX_WEI_RAISED,
-            MIN_BUY,
-            MAX_BUY,
-            PRESALE_DURATION,
-            REFERRAL_BONUS
+            address(token), RATE, TOKENS_FOR_PRESALE, MAX_WEI_RAISED, MIN_BUY, MAX_BUY, PRESALE_DURATION, REFERRAL_BONUS
         );
         console.log("Presale deployed to:", address(presale));
 
@@ -69,13 +62,17 @@ contract DeployScript is Script {
         console.log("Max Buy:", MAX_BUY);
         console.log("Presale Duration:", PRESALE_DURATION / 1 days, "days");
         console.log("Referral Bonus:", REFERRAL_BONUS, "%");
-        
+
         string memory filename = "deployment.json";
         string memory deploymentInfo = string(
             abi.encodePacked(
-                '{"token":"', vm.toString(address(token)),
-                '","presale":"', vm.toString(address(presale)),
-                '","deployer":"', vm.toString(vm.addr(deployerPrivateKey)), '"}'
+                '{"token":"',
+                vm.toString(address(token)),
+                '","presale":"',
+                vm.toString(address(presale)),
+                '","deployer":"',
+                vm.toString(vm.addr(deployerPrivateKey)),
+                '"}'
             )
         );
         vm.writeFile(filename, deploymentInfo);

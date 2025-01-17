@@ -144,6 +144,7 @@ contract SecureAquaPresale is Ownable, ReentrancyGuard, Pausable {
     function claimTokens() external nonReentrant {
         uint256 amount = pendingWithdrawals[msg.sender];
         if (amount == 0) revert InvalidAmount();
+        
 
         // Check contract balance
         uint256 contractBalance = aquaToken.balanceOf(address(this));

@@ -1,4 +1,3 @@
-
 // pragma solidity ^0.8.0;
 
 // import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -46,7 +45,6 @@
 //     /**
 //      * @dev Overrides the _beforeTokenTransfer function to include the "whenNotPaused" modifier
 //      */
-    
 
 //     // function _beforeTokenTransfer(address from, address to, uint256 amount)
 //     //     internal
@@ -56,7 +54,6 @@
 //     //     require(!paused(), "Token transfers are paused");
 //     // }
 // }
-
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -108,10 +105,11 @@ contract CustomERC20 is ERC20, ERC20Burnable, AccessControl, Pausable {
      * Since OpenZeppelin 5.2.0 removed _beforeTokenTransfer in ERC20, we need to define it ourselves.
      * This method will prevent transfers when the contract is paused.
      */
-    function _beforeTokenTransfer(address from, address to, uint256 amount) // address from, address to, uint256 amount
-        internal
-        
-    {
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount // address from, address to, uint256 amount
+    ) internal {
         // Add pausing check here
         require(!paused(), "Token transfers are paused");
         // You can add any additional logic here for before token transfer
