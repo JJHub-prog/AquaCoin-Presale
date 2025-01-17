@@ -48,13 +48,15 @@ contract DeployScript is Script {
         vm.stopBroadcast();
 
         // Log deployment information
-        console.log("\nDeployment Summary");
-        console.log("==================");
+        console.log("\nDeployment Information:");
+        console.log("========================");
         console.log("Token Address:", address(token));
         console.log("Presale Address:", address(presale));
         console.log("Deployer Address:", vm.addr(deployerPrivateKey));
-        console.log("\nPresale Configuration");
-        console.log("-------------------");
+
+        // Additional configuration details
+        console.log("\nPresale Configuration:");
+        console.log("----------------------");
         console.log("Rate:", RATE);
         console.log("Tokens for Presale:", TOKENS_FOR_PRESALE);
         console.log("Max Wei Raised:", MAX_WEI_RAISED);
@@ -62,20 +64,5 @@ contract DeployScript is Script {
         console.log("Max Buy:", MAX_BUY);
         console.log("Presale Duration:", PRESALE_DURATION / 1 days, "days");
         console.log("Referral Bonus:", REFERRAL_BONUS, "%");
-
-        string memory filename = "deployment.json";
-        string memory deploymentInfo = string(
-            abi.encodePacked(
-                '{"token":"',
-                vm.toString(address(token)),
-                '","presale":"',
-                vm.toString(address(presale)),
-                '","deployer":"',
-                vm.toString(vm.addr(deployerPrivateKey)),
-                '"}'
-            )
-        );
-        vm.writeFile(filename, deploymentInfo);
-        console.log("\nDeployment information saved to", filename);
     }
 }
